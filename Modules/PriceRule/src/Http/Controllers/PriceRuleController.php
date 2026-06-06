@@ -30,7 +30,7 @@ class PriceRuleController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('price-rules::price-rules.index', compact('rules', 'ruleTypes'));
+        return view('pricerule::price-rules.index', compact('rules', 'ruleTypes'));
     }
 
     public function create()
@@ -40,7 +40,7 @@ class PriceRuleController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('price-rules::price-rules.create', compact('ruleTypes'));
+        return view('pricerule::price-rules.create', compact('ruleTypes'));
     }
 
     public function store(StorePriceRuleRequest $request)
@@ -56,7 +56,7 @@ class PriceRuleController extends Controller
     {
         $priceRule = $this->priceRuleService->findRule($priceRule->id);
 
-        return view('price-rules::price-rules.show', compact('priceRule'));
+        return view('pricerule::price-rules.show', compact('priceRule'));
     }
 
     public function edit(PriceRule $priceRule)
@@ -68,7 +68,7 @@ class PriceRuleController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('price-rules::price-rules.edit', compact('priceRule', 'ruleTypes'));
+        return view('pricerule::price-rules.edit', compact('priceRule', 'ruleTypes'));
     }
 
     public function update(UpdatePriceRuleRequest $request, PriceRule $priceRule)

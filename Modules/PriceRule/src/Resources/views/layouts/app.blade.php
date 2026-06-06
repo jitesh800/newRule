@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{{ config('app.name', 'Laravel') }} - @yield('title', 'Dashboard')</title>
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom Styles -->
     <style>
         body {
             background-color: #f8f9fa;
@@ -34,7 +31,7 @@
         }
 
         .sidebar .active {
-            background: #007bff;
+            background: #0d6efd;
             color: #fff;
         }
 
@@ -54,11 +51,12 @@
 </head>
 <body>
 
-<!-- ✅ Sidebar -->
 <div class="sidebar position-fixed">
-    <h4 class="text-white p-3">{{ config('app.name', 'App') }}</h4>
+    <h4 class="text-white p-3">
+        {{ config('app.name', 'App') }}
+    </h4>
 
-    <a href="{{ route('admin.dashboard') ?? '#' }}">
+    <a href="{{ Route::has('admin.dashboard') ? route('admin.dashboard') : '#' }}">
         Dashboard
     </a>
 
@@ -68,26 +66,28 @@
     </a>
 </div>
 
-<!-- ✅ Main Content -->
 <div class="content">
-
-    <!-- ✅ Topbar -->
     <div class="topbar d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0">
             @yield('page-title', 'Dashboard')
         </h5>
 
         <div>
-            <span class="me-3">Hi, {{ auth()->user()->name ?? 'Admin' }}</span>
+            <span class="me-3">
+                Hi, {{ auth()->user()->name ?? 'Admin' }}
+            </span>
 
-            <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                @csrf
-                <button class="btn btn-sm btn-outline-danger">Logout</button>
-            </form>
+            @if(Route::has('logout'))
+                <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                        Logout
+                    </button>
+                </form>
+            @endif
         </div>
     </div>
 
-    <!-- ✅ Flash Messages -->
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -100,16 +100,12 @@
         </div>
     @endif
 
-    <!-- ✅ Page Content -->
     @yield('content')
-
 </div>
 
-<!-- ✅ Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 @stack('scripts')
 
 </body>
 </html>
-``

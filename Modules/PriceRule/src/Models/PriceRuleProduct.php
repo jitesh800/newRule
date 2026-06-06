@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PriceRuleProduct extends Model
 {
-    use HasFactory, SoftDeletes;
 
 
     protected $table = 'price_rule_products';
